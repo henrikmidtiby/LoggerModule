@@ -32,11 +32,25 @@ QDir * LoggerModule::baseDirectory = 0;
 LoggerModule::LoggerModule(const QString pathToLog, const QString lognamePostString)
 {
     loggerIsActive = true;
-    ensureThatBaseDirectoryExists(pathToLog, "");
+    checkThatBaseDirectoryExists(pathToLog);
+    ensureThatLogDirectoryExists(pathToLog, "");
     createSubLogDir(lognamePostString);
 }
 
-void LoggerModule::ensureThatBaseDirectoryExists(const QString pathToLog, const QString lognamePostString)
+void LoggerModule::checkThatBaseDirectoryExists(const QString pathToLog)
+{
+    // Check that the specified log directory exists.
+    QDir logDir(pathToLog);
+    if(!logDir.exists())
+    {
+	std::cout << "Directory specified for logging does not exist." << std::endl;
+	std::cout << "Create the following directory to solve the problem: " << std::endl;
+	std::cout << logDir.absolutePath().toStdString() << std::endl;
+	assert(1 == 0);
+    }
+}
+
+void LoggerModule::ensureThatLogDirectoryExists(const QString pathToLog, const QString lognamePostString)
 {
     if(!isAtLeastOneLoggerModuleInitialized)
     {
@@ -50,15 +64,15 @@ void LoggerModule::createBaseLogDirectory(const QString pathToLog, const QString
     //Generate log folder name
     QDateTime dateTime = QDateTime::currentDateTime();
     QString dateTimeString = dateTime.toString("yyyy-MM-dd hh:mm:ss.zzz");
-    QDir * templogdir = new QDir(pathToLog);
+    QDir templogdir(pathToLog);
     // TODO: Insert assertion that the directory is valid.
-    templogdir->mkdir(dateTimeString + lognamePostString);
-    templogdir->cd(dateTimeString + lognamePostString);
+    templogdir.mkdir(dateTimeString + lognamePostString);
+    templogdir.cd(dateTimeString + lognamePostString);
     // Write directory where the log files are stored.
     std::cout << "Log files can be found in this directory." << std::endl;
-    std::cout << templogdir->absolutePath().toStdString() << std::endl;
+    std::cout << templogdir.absolutePath().toStdString() << std::endl;
 
-    baseDirectory = new QDir(templogdir->absolutePath());
+    baseDirectory = new QDir(templogdir.absolutePath());
 }
 
 void LoggerModule::createSubLogDir(const QString subDirName)

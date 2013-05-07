@@ -9,8 +9,17 @@ set(DataLogger_SRCS datalogger.cpp)
 qt4_automoc(${DataLogger_SRCS})
 ADD_LIBRARY(DataLogger STATIC ${DataLogger_SRCS})
 
-set(LoggerModule loggermodule.cpp)
-qt4_automoc(${LoggerModule})
-ADD_LIBRARY(LoggerModule STATIC ${LoggerModule})
+set(LoggerModule_SRCS loggermodule.cpp)
+qt4_automoc(${LoggerModule_SRCS})
+ADD_LIBRARY(LoggerModule STATIC ${LoggerModule_SRCS})
+
+set(ImageLogger_SRCS imagelogger.cpp)
+qt4_automoc(${ImageLogger_SRCS})
+ADD_LIBRARY(ImageLogger STATIC ${ImageLogger_SRCS})
+
+set(CombinedLogger_SRCS combinedlogger.cpp)
+qt4_automoc(${CombinedLogger_SRCS})
+ADD_LIBRARY(CombinedLogger STATIC ${CombinedLogger_SRCS})
+
 	   
-TARGET_LINK_LIBRARIES(DataLogger ${QT_QTCORE_LIBRARY} ${OpenCV_LIBS})
+TARGET_LINK_LIBRARIES(CombinedLogger ${QT_QTCORE_LIBRARY} ${OpenCV_LIBS})

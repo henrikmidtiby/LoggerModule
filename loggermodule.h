@@ -16,7 +16,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef LOGGERMODULE_H
 #define LOGGERMODULE_H
 
@@ -34,6 +33,7 @@ public:
     void run();
     void activate();
     void deactivate();
+    QDir * logdir;
 public slots:
     void log(const QString nameOfValue, int value);
     void log(const QString nameOfValue, char* value);
@@ -43,13 +43,13 @@ private:
     static bool isAtLeastOneLoggerModuleInitialized;
     static QDir * baseDirectory;
     
-    void ensureThatBaseDirectoryExists(const QString pathToLog, const QString lognamePostString);
+    void checkThatBaseDirectoryExists(const QString pathToLog);
+    void ensureThatLogDirectoryExists(const QString pathToLog, const QString lognamePostString);
     void createBaseLogDirectory(const QString pathToLog, const QString lognamePostString);
     void createSubLogDir(const QString subDirName);
     
     bool loggerIsActive;
     
-    QDir * logdir;
     QFile * runtimeLoggerFile;
     QTextStream * runtimeLoggerStream;
 };
