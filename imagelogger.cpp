@@ -41,7 +41,8 @@ void ImageLogger::burstImageLogger(cv::Mat image)
 {
     if(!burstLoggerIsActive)
         return;
-    listOfImages.push_back(image);
+    cv::Mat tempImage = image.clone();
+    listOfImages.push_back(tempImage);
     uint64 currentTime = QDateTime::currentMSecsSinceEpoch();
     listOfTimeStamps.push_back(currentTime);
     if(listOfImages.size() > maxNumberOfImages)
@@ -62,11 +63,13 @@ void ImageLogger::saveImageBurst(void)
         std::vector<int> compression_params;
         compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
         compression_params.push_back(0);
-        QString targetFilename = QString::number(listOfTimeStamps.front()) + ".png";
+        qint64 timestamp = listOfTimeStamps.front();
+        QString targetFilename = QString::number(timestamp) + ".png";
         count++;
         std::string pathToFile = pngImageDir->filePath(targetFilename).toStdString();
-	std::cout << "Writing image to: \"" << pathToFile << "\"" << std::endl;
-        cv::imwrite(pathToFile, listOfImages.front(), compression_params);
+        std::cout << "Writing image to: \"" << pathToFile << "\" " << std::endl;
+        cv::Mat imageToWrite = listOfImages.front();
+        cv::imwrite(pathToFile, imageToWrite, compression_params);
         listOfImages.pop_front();
         listOfTimeStamps.pop_front();
     }
