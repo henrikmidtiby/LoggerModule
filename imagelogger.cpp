@@ -11,6 +11,11 @@ ImageLogger::ImageLogger(const QString pathToLog, const QString lognamePostStrin
     pngImageDir = new QDir(*logdir);
 }
 
+ImageLogger::~ImageLogger()
+{
+  delete pngImageDir;
+}
+
 void ImageLogger::pngImageLogger(cv::Mat image)
 {
     pngImageLogger(image, "");

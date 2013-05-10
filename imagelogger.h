@@ -29,6 +29,7 @@ class ImageLogger : public LoggerModule
     Q_OBJECT
 public:
      ImageLogger(const QString pathToLog, const QString lognamePostString);
+     ~ImageLogger();
 public slots:
     void pngImageLogger(cv::Mat image);
     void pngImageLogger(cv::Mat image, qint64 timestamp);
