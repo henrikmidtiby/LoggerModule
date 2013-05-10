@@ -21,6 +21,7 @@
 
 #include "loggermodule.h"
 #include <qt4/QtCore/QDateTime>
+#include <qt4/QtCore/QMutex>
 #include <deque>
 
 class ImageLogger : public LoggerModule
@@ -38,6 +39,7 @@ public slots:
 
 private slots:
 private:
+    QMutex mutex;
     QDir * pngImageDir;
     bool burstLoggerIsActive;
     std::deque<cv::Mat> listOfImages;

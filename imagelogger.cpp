@@ -40,7 +40,10 @@ void ImageLogger::burstImageLogger(cv::Mat image, qint64 timestamp)
 void ImageLogger::burstImageLogger(cv::Mat image)
 {
     if(!burstLoggerIsActive)
+    {
         return;
+    }
+    mutex.lock();
     cv::Mat tempImage = image.clone();
     listOfImages.push_back(tempImage);
     uint64 currentTime = QDateTime::currentMSecsSinceEpoch();
@@ -50,11 +53,13 @@ void ImageLogger::burstImageLogger(cv::Mat image)
         listOfImages.pop_front();
         listOfTimeStamps.pop_front();
     }
+    mutex.unlock();
 }
 
 
 void ImageLogger::saveImageBurst(void)
 {
+    mutex.lock();
     std::cout << "<saveImageBurst>" << std::endl;
     burstLoggerIsActive = false;
     int count = 0;
@@ -75,4 +80,5 @@ void ImageLogger::saveImageBurst(void)
     }
     burstLoggerIsActive = true;
     std::cout << "</saveImageBurst>" << std::endl;
+    mutex.unlock();
 }
