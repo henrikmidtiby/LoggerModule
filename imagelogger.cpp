@@ -34,6 +34,7 @@ void ImageLogger::pngImageLogger(cv::Mat image, QString cameraName)
     compression_params.push_back(0);
     QString targetFilename = QString::number(QDateTime::currentMSecsSinceEpoch()) + cameraName + ".png";
 
+    // TODO: Check for enough space
     cv::imwrite(pngImageDir->filePath(targetFilename).toStdString(), image, compression_params);
 }
 
@@ -78,6 +79,7 @@ void ImageLogger::saveImageBurst(void)
         count++;
         std::string pathToFile = pngImageDir->filePath(targetFilename).toStdString();
         std::cout << "Writing image to: \"" << pathToFile << "\" " << std::endl;
+        // TODO: Check for enough space
         cv::Mat imageToWrite = listOfImages.front();
         cv::imwrite(pathToFile, imageToWrite, compression_params);
         listOfImages.pop_front();
@@ -87,3 +89,4 @@ void ImageLogger::saveImageBurst(void)
     std::cout << "</saveImageBurst>" << std::endl;
     mutex.unlock();
 }
+
