@@ -63,7 +63,7 @@ void LoggerModule::createBaseLogDirectory(const QString pathToLog, const QString
 {
     //Generate log folder name
     QDateTime dateTime = QDateTime::currentDateTime();
-    QString dateTimeString = dateTime.toString("yyyy-MM-dd hh:mm:ss.zzz");
+    QString dateTimeString = dateTime.toString("yyyy-MM-dd hh.mm.ss.zzz");
     QDir templogdir(pathToLog);
     // TODO: Insert assertion that the directory is valid.
     templogdir.mkdir(dateTimeString + lognamePostString);
