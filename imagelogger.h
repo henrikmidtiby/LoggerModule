@@ -37,6 +37,7 @@ public slots:
     void burstImageLogger(cv::Mat image);
     void burstImageLogger(cv::Mat image, qint64 timestamp);
     void saveImageBurst(void);
+    void saveLastImageInBurst(void);
 
 private slots:
 private:

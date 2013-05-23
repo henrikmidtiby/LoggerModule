@@ -90,3 +90,29 @@ void ImageLogger::saveImageBurst(void)
     mutex.unlock();
 }
 
+
+void ImageLogger::saveLastImageInBurst(void)
+{
+    mutex.lock();
+    std::cout << "<saveLastImageInBurst>" << std::endl;
+    burstLoggerIsActive = false;
+    int count = 0;
+    if(!listOfImages.empty())
+    {
+        std::vector<int> compression_params;
+        compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
+        compression_params.push_back(0);
+        qint64 timestamp = listOfTimeStamps.back();
+        QString targetFilename = QString::number(timestamp) + ".png";
+        count++;
+        std::string pathToFile = pngImageDir->filePath(targetFilename).toStdString();
+        std::cout << "Writing image to: \"" << pathToFile << "\" " << std::endl;
+        // TODO: Check for enough space
+        cv::Mat imageToWrite = listOfImages.back();
+        cv::imwrite(pathToFile, imageToWrite, compression_params);
+    }
+    burstLoggerIsActive = true;
+    std::cout << "</saveLastImageInBurst>" << std::endl;
+    mutex.unlock();
+}
+
