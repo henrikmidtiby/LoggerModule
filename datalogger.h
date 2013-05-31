@@ -22,6 +22,8 @@
 
 #include <qt4/QtCore/QThread>
 #include <opencv2/opencv.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui_c.h>
 #include <qt4/QtCore/QFile>
 #include <qt4/QtCore/QDir>
 #include <qt4/QtCore/QTextStream>
