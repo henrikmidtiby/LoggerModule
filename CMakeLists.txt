@@ -5,9 +5,9 @@ find_package(OpenCV REQUIRED)
 include_directories(${QT_INCLUDES} ${OPENCV_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 add_definitions(${QT_DEFINITIONS})
 
-set(DataLogger_SRCS datalogger.cpp)
-qt4_automoc(${DataLogger_SRCS})
-ADD_LIBRARY(DataLogger STATIC ${DataLogger_SRCS})
+#set(DataLogger_SRCS)
+#qt4_automoc(${DataLogger_SRCS})
+#ADD_LIBRARY(DataLogger STATIC ${DataLogger_SRCS})
 
 set(LoggerModule_SRCS loggermodule.cpp)
 qt4_automoc(${LoggerModule_SRCS})

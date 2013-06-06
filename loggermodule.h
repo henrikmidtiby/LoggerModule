@@ -37,7 +37,7 @@ public:
     QDir * logdir;
 public slots:
     void log(const QString nameOfValue, int value);
-    void log(const QString nameOfValue, char* value);
+    void log(const QString nameOfValue, const char* value);
 private slots:
     void flushLogs(void);
 private:

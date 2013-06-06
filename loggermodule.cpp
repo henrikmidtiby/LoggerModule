@@ -123,7 +123,7 @@ void LoggerModule::log(const QString nameOfValue, int value)
     }
 }
 
-void LoggerModule::log(const QString nameOfValue, char* value)
+void LoggerModule::log(const QString nameOfValue, const char* value)
 {
     if(loggerIsActive)
     {
